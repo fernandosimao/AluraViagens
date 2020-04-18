@@ -23,6 +23,11 @@ public class ResumoCompraActivity extends AppCompatActivity {
 
     public static final String TITULO_APPBAR = "Resumo da compra";
 
+    /*
+    Chegamos aqui através de um clique realizado no botão Finalizar Compra em PagamentoActivity. Inicialmente setamos o
+    layout e o título da APPBAR, depois chamamos o método carregaPacoteRecebido(); que vai, dentre outras coisas, buscar o pacote
+    enviado via extra de PagamentoActivity
+    */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +36,10 @@ public class ResumoCompraActivity extends AppCompatActivity {
         carregaPacoteRecebido();
     }
 
+    /*
+  Esse método busca o pacote enviado via extra de PagamentoActivity. De posse do Pacote, fazemos a inicialização do campos
+  preço através do método inicializaCampos(pacote);
+   */
     private void carregaPacoteRecebido() {
         Intent intent = getIntent();
         if (intent.hasExtra(CHAVE_PACOTE)){
@@ -39,6 +48,10 @@ public class ResumoCompraActivity extends AppCompatActivity {
         }
     }
 
+    /*
+    Esse método chama diversos outros que farão a vinculação do campo criado em nosso layout com uma variável criada, q
+    ue depois será preenchida com as informações do nosso pacote
+     */
     private void inicializaCampos(Pacote pacote) {
         mostraLocal(pacote);
         mostraImagem(pacote);
@@ -46,6 +59,12 @@ public class ResumoCompraActivity extends AppCompatActivity {
         mostraPreco(pacote);
     }
 
+    /*
+  Esse método faz a vinculação do campo criado em nosso layout com uma variável criada, que depois será preenchida
+  com as informações do nosso pacote. Como nossa moeda terá o formato "R$ 243,99" chamamos a função auxiliar
+  MoedaUtil.formataParaBrasileiro que faz esse trabalho. Finalmente, como o dado formatado, fazemos o preenchimmento da
+  nossa variavel preco criada anteriormente.
+   */
     private void mostraPreco(Pacote pacote) {
         TextView preco = findViewById(R.id.resumo_compra_preco_pacote);
         String moedaBrasileira = MoedaUtil
@@ -53,6 +72,12 @@ public class ResumoCompraActivity extends AppCompatActivity {
         preco.setText(moedaBrasileira);
     }
 
+    /*
+  Esse método faz a vinculação do campo criado em nosso layout com uma variável criada, que depois será preenchida
+   com as informações do nosso pacote. Como nossa data terá o formato "18/04 - -20/04 de 2020" chamamos a função auxiliar
+   DataUtil.periodoEmTexto que faz esse trabalho. Finalmente, como o dado formatado, fazemos o preenchimmento da nossa variavel
+   data criada anteriormente.
+   */
     private void mostraData(Pacote pacote) {
         TextView data = findViewById(R.id.resumo_compra_data_viagem);
         String periodoEmTexto = DataUtil
@@ -60,6 +85,12 @@ public class ResumoCompraActivity extends AppCompatActivity {
         data.setText(periodoEmTexto);
     }
 
+    /*
+  Esse método faz a vinculação do campo criado em nosso layout com uma variável criada, que depois será preenchida
+  com as informações do nosso pacote. Como nossos imagens estão no diretorio res/drawable, precisamos acessar elas usando
+  um nome, uma string, e para isso chamamos a função auxiliar ResourceUtil.devolveDrawable que faz esse trabalho. Finalmente,
+  com a imagem obtida, fazemos o preenchimmento da nossa variavel imagem obtida anteriormente.
+   */
     private void mostraImagem(Pacote pacote) {
         ImageView imagem = findViewById(R.id.resumo_compra_imagem_pacote);
         Drawable drawableDoPacote = ResourceUtil
@@ -67,6 +98,11 @@ public class ResumoCompraActivity extends AppCompatActivity {
         imagem.setImageDrawable(drawableDoPacote);
     }
 
+    /*
+  Esse método faz a vinculação do campo criado em nosso layout com uma variável criada, que depois será preenchida
+  com as informações do nosso pacote. Como esse informação já está pronta, fazemos o preenchimmento da nossa variavel local
+  diretamente, como o método .setText.
+   */
     private void mostraLocal(Pacote pacote) {
         TextView local = findViewById(R.id.resumo_compra_local_pacote);
         local.setText(pacote.getLocal());

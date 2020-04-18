@@ -21,6 +21,11 @@ public class PagamentoActivity extends AppCompatActivity {
 
     public static final String TITULO_APPBAR = "Pagamento";
 
+    /*
+    Chegamos aqui através de um clique realizado no botão Realizar Pagamento em ResumoPacoteActivity. Inicialmente setamos o
+    layout e o título da APPBAR, depois chamamos o método carregaPacoteRecebido(); que vai, dentre outras coisas, buscar o pacote
+    enviado via extra de ResumoPacoteActivity
+    */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +34,11 @@ public class PagamentoActivity extends AppCompatActivity {
         carregaPacoteRecebido();
     }
 
+    /*
+   Esse método busca o pacote enviado via extra de ResumoPacoteActivity. De posse do Pacote, fazemos a inicialização do campo
+   preço através do método mostraPreco(pacote). Finalmente chamamos o método configuraBotao(pacote)que nos levará para a próxima
+   activity ao ser clicado.
+    */
     private void carregaPacoteRecebido() {
         Intent intent = getIntent();
         if(intent.hasExtra(CHAVE_PACOTE)){
@@ -38,6 +48,11 @@ public class PagamentoActivity extends AppCompatActivity {
         }
     }
 
+    /*
+    Aqui configuramos o clique do botão que nos levará para a próxima activity, ResumoCompraActivity. Após fazer o vínculo
+    da variável botaoFinalizaCompra com o botão criado em nosso layout, setamos que o clique nos leverá para a função
+     vaiParaResumoCompra(pacote)
+     */
     private void configuraBotao(final Pacote pacote) {
         Button botaoFinalizaCompra = findViewById(R.id.pagamento_botao_finaliza_compra);
         botaoFinalizaCompra.setOnClickListener(new View.OnClickListener() {
@@ -48,6 +63,10 @@ public class PagamentoActivity extends AppCompatActivity {
         });
     }
 
+    /*
+    Essa função nos envia para a próxima activity ResumoCompraActivity colocando um extra no envio, o pacote que foi clicado
+    na ListaActivity, foi exibido em ResumoPacoteActivity e também aqui na tela de pagamento (o preço), PagamentoActivity.
+     */
     private void vaiParaResumoCompra(Pacote pacote) {
         Intent intent = new Intent(PagamentoActivity.this,
                 ResumoCompraActivity.class);
@@ -55,6 +74,12 @@ public class PagamentoActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /*
+   Esse método faz a vinculação do campo criado em nosso layout com uma variável criada, que depois será preenchida
+   com as informações do nosso pacote. Como nossa moeda terá o formato "R$ 243,99" chamamos a função auxiliar
+   MoedaUtil.formataParaBrasileiro que faz esse trabalho. Finalmente, como o dado formatado, fazemos o preenchimmento da
+   nossa variavel preco criada anteriormente.
+    */
     private void mostraPreco(Pacote pacote) {
         TextView preco = findViewById(R.id.pagamento_preco_pacote);
         String moedaBrasileira = MoedaUtil
