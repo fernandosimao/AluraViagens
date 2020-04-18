@@ -9,6 +9,9 @@ public class DataUtil {
 
     public static final String DIA_E_MES = "dd/MM";
 
+   /*Como nossa data terá o formato "18/04 - 20/04 de 2020" em ResumoPacotesActivity chamamos essa função auxiliar
+    DataUtil.periodoEmTexto que faz esse trabalho.
+    */
     @NonNull
     public static String periodoEmTexto(int dias) {
         Calendar dataIda = Calendar.getInstance();

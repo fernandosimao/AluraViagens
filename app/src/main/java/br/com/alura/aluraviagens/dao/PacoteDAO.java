@@ -9,6 +9,7 @@ import br.com.alura.aluraviagens.model.Pacote;
 
 public class PacoteDAO {
 
+    //DAO que imlementamos  da nossa solução. Na nossa solução apenas devolvemos os itens que inserimos manualmente abaixo
     public List<Pacote> lista() {
         List<Pacote> pacotes = new ArrayList<>(Arrays.asList(
                 new Pacote("São Paulo", "sao_paulo_sp", 2, new BigDecimal(243.99)),
